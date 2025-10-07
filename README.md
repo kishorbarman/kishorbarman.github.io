@@ -1,3 +1,3 @@
 # kishorbarman.github.io
-LinkedId: https://www.linkedin.com/in/kishorbarman/
+[LinkedIn](https://www.linkedin.com/in/kishorbarman/)
 
