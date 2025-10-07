@@ -1,2 +1,3 @@
 # kishorbarman.github.io
-Kishor's little world
+LinkedId: https://www.linkedin.com/in/kishorbarman/
+
