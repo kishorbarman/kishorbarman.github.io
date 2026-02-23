@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kishor Barman | Senior Director of Engineering</title>
+    <meta name="description" content="Personal website of Kishor Barman, Senior Director of Engineering at Google.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #60a5fa;
+            --accent-dim: rgba(96, 165, 250, 0.15);
+            --border: rgba(148, 163, 184, 0.1);
+            --glow: rgba(96, 165, 250, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s, opacity 0.2s;
+        }
+
+        a:hover {
+            color: #93c5fd;
+        }
+
+        /* --- Navigation --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .navbar.scrolled {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 var(--border);
+        }
+
+        .nav-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .navbar.scrolled .nav-name {
+            opacity: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 24px;
+            position: relative;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            background: linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
+                        linear-gradient(135deg, var(--accent), #a78bfa) border-box;
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards 0.2s;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease forwards 0.4s;
+        }
+
+        .hero .role {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease forwards 0.6s;
+        }
+
+        .hero-contact {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease forwards 0.8s;
+        }
+
+        .hero-contact .location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .social-link:hover {
+            background: var(--accent-dim);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.2s;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            color: var(--text-muted);
+            animation: bobble 2s ease-in-out infinite;
+        }
+
+        /* --- Main Content --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            margin-bottom: 32px;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .section-header h2 span {
+            background: linear-gradient(135deg, var(--accent), #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header .divider {
+            width: 48px;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(135deg, var(--accent), #a78bfa);
+            margin-top: 12px;
+        }
+
+        /* --- Reveal Animation --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- About Section --- */
+        .about-text p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+
+        .about-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 28px;
+        }
+
+        .skill-tag {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border: 1px solid transparent;
+            transition: transform 0.2s, border-color 0.2s, background 0.2s;
+            cursor: default;
+        }
+
+        .skill-tag:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+            background: rgba(96, 165, 250, 0.2);
+        }
+
+        /* --- Experience Timeline --- */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 8px;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--accent), var(--border));
+        }
+
+        .job {
+            position: relative;
+            margin-bottom: 48px;
+        }
+
+        .job:last-child {
+            margin-bottom: 0;
+        }
+
+        .job::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 8px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+            border: 2px solid var(--accent);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .job.visible::before {
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--glow);
+        }
+
+        .job-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .company {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .duration {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            background: var(--bg-secondary);
+            padding: 3px 12px;
+            border-radius: 4px;
+        }
+
+        .job-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .job-body {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.75;
+        }
+
+        .job-body p {
+            margin-bottom: 12px;
+        }
+
+        .job-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .job-body strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .job-highlight {
+            margin-top: 12px;
+            padding: 12px 16px;
+            border-left: 3px solid var(--accent);
+            background: var(--bg-secondary);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* --- Education --- */
+        .edu-item {
+            padding: 24px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .edu-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .edu-item:hover {
+            border-color: rgba(96, 165, 250, 0.25);
+        }
+
+        .degree {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .school {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .edu-detail {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        footer a {
+            color: var(--text-secondary);
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 12px;
+        }
+
+        /* --- Keyframes --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bobble {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 16px;
+                justify-content: center;
+            }
+
+            .nav-name {
+                display: none;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                padding: 0 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-contact {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .container {
+                padding: 0 20px 60px;
+            }
+
+            .section {
+                margin-bottom: 60px;
+            }
+
+            .job-top {
+                flex-direction: column;
+            }
+
+            .duration {
+                display: inline-block;
+            }
+
+            .timeline {
+                padding-left: 28px;
+            }
+
+            .job::before {
+                left: -28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .hero-contact .location {
+                font-size: 0.82rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <span class="nav-name">Kishor Barman</span>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#education">Education</a>
+            <a href="random.html">Projects</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <img src="https://kishorbarman.com/kishor_profile.png" alt="Kishor Barman" class="profile-image" onerror="this.style.display='none'">
+        <h1>Kishor Barman</h1>
+        <div class="role">Senior Director of Engineering, Google</div>
+        <div class="hero-contact">
+            <span class="location">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                San Francisco Bay Area
+            </span>
+            <a href="mailto:[first name][last name]@gmail.com" class="social-link email-link" aria-label="Email" onclick="revealEmail(event)">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4C2.897 4 2 4.897 2 6v12c0 1.103.897 2 2 2h16c1.104 0 2-.897 2-2V6c0-1.103-.896-2-2-2zm0 2v.511l-8 5.333-8-5.333V6h16zM4 18V8.489l8 5.333 8-5.333V18H4z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/kishorbarman/" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M22.225 0H1.771C.792 0 0 .771 0 1.723v20.554C0 23.228.792 24 1.771 24h20.454C23.2 24 24 23.228 24 22.277V1.723C24 .771 23.2 0 22.225 0zM6.615 20.452H3.558V9h3.057v11.452zM5.087 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.135 1.447-2.135 2.943v5.663H9.35V9h3.414v1.561h.049c.476-.9 1.637-1.852 3.369-1.852 3.601 0 4.266 2.369 4.266 5.456v6.287z"/></svg>
+            </a>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- About -->
+        <section class="section" id="about">
+            <div class="section-header reveal">
+                <h2><span>About</span></h2>
+                <div class="divider"></div>
+            </div>
+            <div class="about-text reveal">
+                <p>I lead the ads monetization teams for <strong>Google Discover</strong> and <strong>Gmail</strong>, supporting a team of <strong>130+ engineers</strong>. My work focuses on building state-of-the-art personalized ads delivery systems that drive a fast-growing, multi-billion dollar business for Google.
+                We operate at the intersection of ad personalization, retrieval, deep learning, marketplace optimization, and large-scale serving infrastructure.</p>
+                <p>Previously, I led engineering for DemandGen (Google's solution to help Social advertisers to be successful in Google), and have pioneered real-time budgeting & bidding optimization and experimentation frameworks.</p>
+            </div>
+            <div class="skills-grid reveal">
+                <span class="skill-tag">Ads Monetization</span>
+                <span class="skill-tag">Large Scale Systems</span>
+                <span class="skill-tag">Machine Learning</span>
+                <span class="skill-tag">Deep Learning</span>
+                <span class="skill-tag">Engineering Leadership</span>
+                <span class="skill-tag">Marketplace Optimization</span>
+                <span class="skill-tag">Recommendation Systems</span>
+                <span class="skill-tag">Bidding & Budgeting</span>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section class="section" id="experience">
+            <div class="section-header reveal">
+                <h2><span>Experience</span></h2>
+                <div class="divider"></div>
+            </div>
+            <div class="timeline">
+
+                <!-- Google -->
+                <div class="job reveal">
+                    <div class="job-top">
+                        <div class="company">Google</div>
+                        <div class="duration">2013 - Present</div>
+                    </div>
+                    <span class="job-title">Senior Director of Engineering</span>
+                    <div class="job-body">
+                        <p><strong>2024 - Present:</strong> Engineering Lead for monetization of Google Discover and Gmail. Supporting 130+ engineers across Infra, ML, UX, and Marketplace Optimization to build two fast growing multi-billion dollar businesses end-to-end. In 2024, also led engineering for "DemandGen campaigns" across YouTube, Discover, and Gmail.</p>
+                        <div class="job-highlight">
+                            Key Focus: Personalized recommendation, ML, ad formats and marketplace optimization to drive user sentiment and advertiser value.
+                        </div>
+                        <p><strong>2020 - 2024:</strong> Engineering lead for Monetization of Google Discover. Focused on building state of the art personalized ad recommendation systems, and grew the business from $xxM/year to $yB/year.</p>
+                        <p><strong>2013 - 2019:</strong> Pioneered multiple high-impact innovations in the budgeting & bidding, including the first near-real time budget controlled experiment framework across all Google Ads products, and the first infrastructure to do near-real time joint budgeting + bidding optimization at Google Ads.</p>
+                    </div>
+                </div>
+
+                <!-- Qualcomm -->
+                <div class="job reveal">
+                    <div class="job-top">
+                        <div class="company">Qualcomm Research</div>
+                        <div class="duration">2011 - 2013</div>
+                    </div>
+                    <span class="job-title">Researcher</span>
+                    <div class="job-body">
+                        <p>Built an on-device camera-based text recognition engine for Indian languages.</p>
+                    </div>
+                </div>
+
+                <!-- Yahoo Labs -->
+                <div class="job reveal">
+                    <div class="job-top">
+                        <div class="company">Yahoo Labs</div>
+                        <div class="duration">2009 - 2010</div>
+                    </div>
+                    <span class="job-title">Research Intern</span>
+                    <div class="job-body">
+                        <p>Worked on temporal dynamics of conversations and understanding social network dynamics under different preferential models.</p>
+                    </div>
+                </div>
+
+                <!-- HP Labs -->
+                <div class="job reveal">
+                    <div class="job-top">
+                        <div class="company">HP Labs</div>
+                        <div class="duration">2005 - 2006</div>
+                    </div>
+                    <span class="job-title">Researcher</span>
+                    <div class="job-body">
+                        <p>Worked on offline handwriting recognition and steganography on paper prints.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section" id="education">
+            <div class="section-header reveal">
+                <h2><span>Education</span></h2>
+                <div class="divider"></div>
+            </div>
+            <div class="edu-item reveal">
+                <div class="degree">Ph.D. in Computer Science</div>
+                <div class="school">Tata Institute of Fundamental Research, Mumbai (2006 - 2011)</div>
+                <div class="edu-detail">Research focused on collaborative filtering theory and MIMO wireless communication.</div>
+            </div>
+            <div class="edu-item reveal">
+                <div class="degree">B.E. in Electrical and Electronics Engineering</div>
+                <div class="school">Birla Institute of Technology & Science, Pilani (2001 - 2005)</div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Kishor Barman</p>
+        <div class="footer-links">
+            <a href="https://scholar.google.com/citations?user=HXzPNwUAAAAJ&hl=en&oi=ao" target="_blank">Google Scholar</a>
+            <a href="https://www.linkedin.com/in/kishorbarman/" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Scroll-triggered reveal animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Stagger sibling reveals
+                    const siblings = entry.target.parentElement.querySelectorAll('.reveal');
+                    const idx = Array.from(siblings).indexOf(entry.target);
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, idx * 120);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Email reveal
+        function revealEmail(e) {
+            e.preventDefault();
+            const a = e.currentTarget;
+            const user = 'kishorbarman';
+            const domain = 'gmail.com';
+            window.location.href = 'mailto:' + user + '@' + domain;
+        }
+    </script>
+</body>
+</html>
