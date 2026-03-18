@@ -3,28 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects | Kishor Barman</title>
-    <meta name="description" content="A few random vibe coding experiments.">
+    <title>#vibecoding | Kishor Barman</title>
+    <meta name="description" content="My vibe coding playground.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
             --text-primary: #e2e8f0;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
             --accent: #60a5fa;
-            --accent-dim: rgba(96, 165, 250, 0.15);
             --border: rgba(148, 163, 184, 0.1);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -37,15 +31,8 @@
             flex-direction: column;
         }
 
-        a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        a:hover {
-            color: #93c5fd;
-        }
+        a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: #93c5fd; }
 
         .container {
             max-width: 800px;
@@ -54,105 +41,74 @@
             width: 100%;
         }
 
-        /* --- Header --- */
-        .page-header {
-            padding: 100px 0 60px;
-        }
-
-        .page-header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-            opacity: 0;
-            animation: fadeSlideUp 0.6s ease forwards 0.1s;
-        }
-
-        .page-header .subtitle {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            opacity: 0;
-            animation: fadeSlideUp 0.6s ease forwards 0.25s;
+        header {
+            padding: 48px 0 28px;
         }
 
         .back-link {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
-            flex-shrink: 0;
-            margin-top: 12px;
-            opacity: 0;
-            animation: fadeIn 0.6s ease forwards 0.3s;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
         }
 
-        .back-link:hover {
-            color: var(--text-primary);
-        }
+        .back-link:hover { color: var(--text-secondary); }
 
-        /* --- Project Cards --- */
-        .projects-grid {
-            display: grid;
-            gap: 20px;
-            padding-bottom: 80px;
-        }
-
-        .project-card {
-            display: block;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 28px;
-            transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
-            opacity: 0;
-            animation: fadeSlideUp 0.6s ease forwards;
-        }
-
-        .project-card:nth-child(1) { animation-delay: 0.35s; }
-        .project-card:nth-child(2) { animation-delay: 0.5s; }
-        .project-card:nth-child(3) { animation-delay: 0.65s; }
-        .project-card:nth-child(4) { animation-delay: 0.8s; }
-
-        .project-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(96, 165, 250, 0.3);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .project-card h2 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
             margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .projects {
+            padding-bottom: 48px;
+        }
+
+        .project-item {
+            display: block;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .project-item:last-child {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-item:hover { color: var(--text-primary); }
+
+        .project-name {
+            font-size: 0.95rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 8px;
+            margin-bottom: 2px;
         }
 
-        .project-card h2 .arrow {
+        .project-name .arrow {
             color: var(--accent);
             transition: transform 0.2s;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
         }
 
-        .project-card:hover h2 .arrow {
+        .project-item:hover .arrow {
             transform: translateX(4px);
         }
 
-        .project-card p {
+        .project-desc {
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            font-size: 0.95rem;
         }
 
-        /* --- Footer --- */
         footer {
             margin-top: auto;
             text-align: center;
@@ -162,85 +118,47 @@
             border-top: 1px solid var(--border);
         }
 
-        /* --- Keyframes --- */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 640px) {
-            .page-header {
-                padding: 80px 0 40px;
-            }
-
-            .page-header .container {
-                flex-direction: column;
-            }
-
-            .back-link {
-                margin-top: 0;
-                margin-bottom: 24px;
-                order: -1;
-            }
-
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .project-card {
-                padding: 24px;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="page-header">
+    <header>
         <div class="container">
-            <div>
-                <h1>Projects</h1>
-                <p class="subtitle">A few random vibe coding experiments.</p>
-            </div>
             <a href="index.html" class="back-link">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                 Home
             </a>
+            <h1>#vibecoding</h1>
+            <p class="subtitle">My vibe coding playground. More on <a href="https://github.com/kishorbarman" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;vertical-align:middle;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>Github</a>.</p>
         </div>
-    </div>
+    </header>
 
     <div class="container">
-        <div class="projects-grid">
-            <a href="shopfront/index.html" class="project-card">
-                <h2>ShopFront <span class="arrow">&rarr;</span></h2>
-                <p>Text-to-Website Platform for Small Business</p>
+        <div class="projects">
+            <a href="shopfront/index.html" class="project-item">
+                <div class="project-name">ShopFront <span class="arrow">&rarr;</span></div>
+                <div class="project-desc">Text-to-Website Platform for Small Business</div>
             </a>
-            <a href="games/index.html" class="project-card">
-                <h2>Games <span class="arrow">&rarr;</span></h2>
-                <p>Small games and interactive experiments.</p>
+            <a href="pulse/index.html" class="project-item">
+                <div class="project-name">Pulse Board <span class="arrow">&rarr;</span></div>
+                <div class="project-desc">A web app to keep track of your interests.</div>
             </a>
-            <a href="market/index.html" class="project-card">
-                <h2>S&P 500 Heatmap <span class="arrow">&rarr;</span></h2>
-                <p>A heatmap of S&P 500 stocks.</p>
+            <a href="three/index.html" class="project-item">
+                <div class="project-name">Three <span class="arrow">&rarr;</span></div>
+                <div class="project-desc">A minimalistic planning app.</div>
             </a>
-            <a href="pulse/index.html" class="project-card">
-                <h2>Pulse Board <span class="arrow">&rarr;</span></h2>
-                <p>A web app to keep track of your interests.</p>
+            <a href="market/index.html" class="project-item">
+                <div class="project-name">S&amp;P 500 Heatmap <span class="arrow">&rarr;</span></div>
+                <div class="project-desc">A heatmap of S&amp;P 500 stocks.</div>
+            </a>
+            <a href="games/index.html" class="project-item">
+                <div class="project-name">Games <span class="arrow">&rarr;</span></div>
+                <div class="project-desc">Small games and interactive experiments.</div>
             </a>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2025 Kishor Barman</p>
+        <p>&copy; Kishor Barman</p>
     </footer>
 </body>
 </html>
